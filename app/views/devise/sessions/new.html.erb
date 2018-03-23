@@ -1,0 +1,23 @@
+<h3>Log in</h3>
+<hr>
+<div class="container col-md-6" style="margin: auto;">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-group">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+        <%= render "devise/shared/links" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Log in", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

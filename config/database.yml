@@ -1,0 +1,19 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: 5
+  host: localhost
+  username: root
+  password: 24865123
+
+development:
+  <<: *default
+  database: competition_db
+
+test:
+  <<: *default
+  database: competition_db
+
+production:
+  <<: *default
+  database: competition_db

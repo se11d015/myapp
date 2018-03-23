@@ -1,0 +1,13 @@
+<%= @status %> <br>
+<br>
+<br>
+<%= form_for @user_competition, url: "/join_competitions/#{@user_competition.id}", method: "post" do |form| %>
+  <div class="field">
+      <%= form.label "submit solution" %>
+      <%= form.text_area :answer, rows: 5 %>
+
+      <div class="actions">
+        <input type="submit" value="submit">
+      </div>
+  </div>
+<% end %>

@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @competition.name %>
+</p>
+
+<p>
+  <strong>Image:</strong><br>
+  <%= image_tag @competition.image_url.to_s, width: 100, height: 100 %>
+</p>
+
+<p>
+  <strong>Left time:</strong>
+  <%= @competition.left_time.strftime("%H:%M") %>
+</p>
+
+<p>
+  <strong>Participants number:</strong>
+  <%= @competition.participants_number %>
+</p>
+
+<p>
+  <strong>Details:</strong>
+  <%= @competition.details %>
+</p>
+
+<% if current_user.present? && current_user.role == "admin" %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Created Date</th>
+      <th>Answer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user_competitions.each do |user_competition| %>
+      <tr>
+        <td><%= user_competition.email%></td>
+        <td><%= user_competition.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+        <td><%= user_competition.answer %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Edit', edit_competition_path(@competition), class: "btn btn-info" %>
+<%else%>
+<a href="/join_competitions/<%= @competition.id %>" class="btn btn-info">Join this competition</a> <br>
+<%end%>
+<%= link_to 'Back', competitions_path, class: "btn btn-warning" %>
+
+<% if @user_competition.present? %>
+  <hr>
+  <h3>Submission detail</h3>
+  <%= @user_competition.answer %>
+<% end %>

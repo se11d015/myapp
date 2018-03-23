@@ -1,0 +1,44 @@
+<div class="col-md-6">
+  <%= form_with(model: competition, local: true) do |form| %>
+    <% if competition.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(competition.errors.count, "error") %> prohibited this competition from being saved:</h2>
+
+        <ul>
+        <% competition.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, id: :competition_name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :image %>
+      <%= form.file_field :image %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :left_time %>
+      <%= form.time_select :left_time, id: :competition_left_time, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :participants_number %>
+      <%= form.number_field :participants_number, id: :competition_participants_number, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :details %>
+      <%= form.text_area :details, id: :competition_details, class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
