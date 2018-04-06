@@ -1,6 +1,3 @@
-<%= @status %> <br>
-<br>
-<br>
 <%= form_for @user_competition, url: "/join_competitions/#{@user_competition.id}", method: "post" do |form| %>
   <div class="field">
       <%= form.label "submit solution" %>

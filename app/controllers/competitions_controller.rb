@@ -3,9 +3,9 @@ class CompetitionsController < ApplicationController
   before_action :set_competition, only: [:show, :edit, :update, :destroy]
 
   # GET /competitions
-  # GET /competitions.json
   def index
     @competitions = Competition.all
+
   end
 
   # GET /competitions/1
@@ -14,7 +14,7 @@ class CompetitionsController < ApplicationController
       @user_competition  = UserCompetition.where(user_id: current_user.id, competition_id: params[:id]).first
     end
 
-    @user_competitions = UserCompetition.select("users.email, competitions.created_at, user_competitions.answer")
+    @user_competitions = UserCompetition.select("users.firstname, user_competitions.created_at, user_competitions.answer")
                                         .joins("INNER JOIN users ON users.id = user_competitions.user_id")
                                         .joins("INNER JOIN competitions ON competitions.id = user_competitions.competition_id")
                                         .where(competition_id: params[:id])

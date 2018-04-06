@@ -286,6 +286,8 @@ Devise.setup do |config|
     config.skip_session_storage = [:http_auth]
     config.case_insensitive_keys = [ :email ]
     config.strip_whitespace_keys = [ :email ]
+    config.omniauth :twitter, 	"1vr5ethQF6GeljBdZXnojGBuI", "0Ky9I1IrD21terWFoWcA9pRUIZ2HoUusaGUNkrpuDdkQeSoV0Q"
+    config.omniauth :facebook, "129572914458098", "2d3f60407048c84dd210b2d1b541cc5e", scope: 'public_profile,email'
     config.omniauth :google_oauth2, "860617636123-du5cfoujqpu8ebk5akaju6a3gjdn1elo.apps.googleusercontent.com", "59pIWsuu4nnHA47mk7b4JLXn", scope: 'email, profile'
   end
 end

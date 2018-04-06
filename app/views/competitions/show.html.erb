@@ -1,18 +1,24 @@
 <p id="notice"><%= notice %></p>
 
+<h2><center>COMPETITION DETAIL</h2>
+
 <p>
   <strong>Name:</strong>
   <%= @competition.name %>
 </p>
 
 <p>
-  <strong>Image:</strong><br>
   <%= image_tag @competition.image_url.to_s, width: 100, height: 100 %>
 </p>
 
 <p>
   <strong>Left time:</strong>
-  <%= @competition.left_time.strftime("%H:%M") %>
+  <%= Time.at((@competition.left_time - DateTime.now).to_i.seconds).strftime("%d:%H:%Mminutes:%Sseconds") %>
+</p>
+
+<p>
+  <strong>Deadline</strong>
+  <%= @competition.left_time.strftime("%Y/%m/%d %H:%M") %>
 </p>
 
 <p>
@@ -21,37 +27,42 @@
 </p>
 
 <p>
-  <strong>Details:</strong>
+  <strong>Description:</strong>
   <%= @competition.details %>
 </p>
 
+<% if @user_competition.present? && current_user.role != "admin"%>
+<p>
+  <strong>My submission</strong></br>
+  <%= @user_competition.answer %>
+</br>
+</br>
+</br>
+</p>
+<% end %>
+
 <% if current_user.present? && current_user.role == "admin" %>
+<p>
+  <strong>Participant list</strong>
+</p>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Email</th>
+      <th>Name</th>
       <th>Created Date</th>
-      <th>Answer</th>
+      <th>Submission detail</th>
     </tr>
   </thead>
   <tbody>
     <% @user_competitions.each do |user_competition| %>
       <tr>
-        <td><%= user_competition.email%></td>
+        <td><%= user_competition.firstname%></td>
         <td><%= user_competition.created_at.strftime("%Y/%m/%d %H:%M") %></td>
         <td><%= user_competition.answer %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Edit', edit_competition_path(@competition), class: "btn btn-info" %>
 <%else%>
 <a href="/join_competitions/<%= @competition.id %>" class="btn btn-info">Join this competition</a> <br>
 <%end%>
-<%= link_to 'Back', competitions_path, class: "btn btn-warning" %>
-
-<% if @user_competition.present? %>
-  <hr>
-  <h3>Submission detail</h3>
-  <%= @user_competition.answer %>
-<% end %>

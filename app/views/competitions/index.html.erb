@@ -6,16 +6,36 @@
 
 <p id="notice"><%= notice %></p>
 
-<h1>Competitions</h1>
+<h2><center>COMPETITIONS</h2>
+
 
 <table id='competitions' class="table table-striped">
+
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="/competitions" role="tab" aria-controls="pills-home" aria-selected="true">All</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="/competitions?active=1" role="tab" aria-controls="pills-profile" aria-selected="false">Active</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="/competitions?active=0" role="tab" aria-controls="pills-contact" aria-selected="false">Inactive</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+  </div>
+
   <thead>
     <tr>
-      <th>Image</th>
+      <th></th>
       <th>Name</th>
       <th>Left time</th>
       <th>Participants number</th>
-      <th>Details</th>
+      <th>Created Date</th>
+      <!-- <th>Details</th> -->
       <th></th>
     </tr>
   </thead>
@@ -25,14 +45,15 @@
       <tr>
         <td><%= image_tag competition.image_url.to_s, width: 100, height: 100 %></td>
         <td width="200"><%= competition.name %></td>
-        <td><%= competition.left_time.strftime("%H:%M") %></td>
+        <td><%= Time.at((competition.left_time - DateTime.now).to_i.seconds).strftime("%d:%H:%Mminutes:%Sseconds") %></td>
         <td><%= competition.participants_number %></td>
-        <td width="400"><%= competition.details %></td>
+        <td><%= competition.created_at.strftime("%Y/%m/%d %H:%M")%></td>
+        <!-- <td width="400"><%= competition.details %></td> -->
         <td width="100">
-          <%= link_to 'Detail', competition, class: "btn btn-success", style: "padding: 5px; color: #fff;  margin: 5px;" %> <br>
+          <%= link_to 'Detail', competition, class: "btn btn-info", style: "padding: 5px; color: #fff;  margin: 5px;" %> <br>
           <% if current_user.present? && current_user.role == "admin" %>
-          <%= link_to 'Destroy', competition, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", style: "padding: 5px; color: #fff; margin: 5px;" %>
-            <%= link_to 'Edit', edit_competition_path(competition), class: "btn btn-info", style: "padding: 5px; color: #fff; margin: 5px;" %> <br>
+            <%= link_to 'Update', edit_competition_path(competition), class: "btn btn-info", style: "padding: 5px; color: #fff; margin: 5px;" %> <br>
+            <%= link_to 'Destroy', competition, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", style: "padding: 5px; color: #fff; margin: 5px;" %>
           <% else %>
             <a href="/join_competitions/<%= competition.id %>", class="btn btn-info", style="padding: 5px; color: #fff; margin: 5px;">Join this competition</a> <br>
           <% end %>

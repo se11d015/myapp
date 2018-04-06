@@ -23,8 +23,8 @@
     </div>
 
     <div class="form-group">
-      <%= form.label :left_time %>
-      <%= form.time_select :left_time, id: :competition_left_time, class: "form-control" %>
+      <%= form.label :Deadline %>
+      <%= form.date_select :left_time, id: :competition_left_time, class: "form-control" %>
     </div>
 
     <div class="form-group">
@@ -33,12 +33,12 @@
     </div>
 
     <div class="form-group">
-      <%= form.label :details %>
+      <%= form.label :description %>
       <%= form.text_area :details, id: :competition_details, class: "form-control" %>
     </div>
 
     <div class="actions">
-      <%= form.submit class: "btn btn-primary" %>
+        <%= form.submit class: "btn btn-info" %>
     </div>
   <% end %>
 </div>
